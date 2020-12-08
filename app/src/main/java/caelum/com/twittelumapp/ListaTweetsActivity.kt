@@ -1,5 +1,6 @@
 package caelum.com.twittelumapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
@@ -25,9 +26,10 @@ class ListaTweetsActivity : AppCompatActivity() {
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, tweets)
 
-binding.listaTweet.adapter = adapter
+        binding.listaTweet.adapter = adapter
         binding.fabNovo.setOnClickListener{
-            Snackbar.make(it,"clicou no botao",Snackbar.LENGTH_LONG).show()
+                val intencao = Intent(this, TweetActivity::class.java)
+                startActivity(intencao)
         }
     }
 }

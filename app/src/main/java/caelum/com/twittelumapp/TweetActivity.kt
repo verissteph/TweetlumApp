@@ -6,19 +6,20 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 
-class MainActivity : AppCompatActivity() {
+class TweetActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val botaoPublicar = findViewById<Button>(R.id.publicar_tweet)
-        botaoPublicar.setOnClickListener{
-            val campoConteudo = findViewById<EditText>(R.id.conteudo_tweet)
-            val conteudo = campoConteudo.text.toString()
-
-            Toast.makeText(this,conteudo,Toast.LENGTH_LONG).show()
-        }
+        botaoPublicar.setOnClickListener{ publicaTweet() }
     }
 
+    fun publicaTweet(){
+        val campoConteudo = findViewById<EditText>(R.id.conteudo_tweet)
+        val conteudo = campoConteudo.text.toString()
+        Toast.makeText(this,conteudo,Toast.LENGTH_LONG).show()
+         finish()
+    }
 
 }
