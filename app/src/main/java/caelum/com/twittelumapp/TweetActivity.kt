@@ -35,7 +35,7 @@ class TweetActivity : AppCompatActivity() {
         val campoDeMensagemDoTweet = findViewById<EditText>(R.id.conteudo_tweet)
         val mensagemDoTweet = campoDeMensagemDoTweet.text.toString()
         val tweet = Tweet(mensagemDoTweet)
-        Toast.makeText(this,tweet.toString(),Toast.LENGTH_LONG).show()
+        Toast.makeText(this,"$tweet",Toast.LENGTH_LONG).show()
     }
 
 }
