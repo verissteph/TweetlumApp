@@ -11,12 +11,11 @@ abstract  class TwittelumDatabase: RoomDatabase() {
     abstract  fun tweetDao(): TweetDao
     companion object{
         private  var database: TwittelumDatabase? = null
-        private val DATABASE = "TwittelumDB"
         fun getInstance(context: Context) : TwittelumDatabase{
             return database ?: criaBanco(context).also { database = it}
         }
         private fun criaBanco(context:Context): TwittelumDatabase{
-            return Room.databaseBuilder(context,TwittelumDatabase::class.java, DATABASE)
+            return Room.databaseBuilder(context,TwittelumDatabase::class.java, "TwittelumDB")
                 .allowMainThreadQueries()
                 .build()
         }

@@ -39,7 +39,7 @@ class TweetActivity : AppCompatActivity() {
         val tweetDao = TwittelumDatabase.getInstance(this).tweetDao()
         tweetDao.salva(tweet)
 
-        Toast.makeText(this,"$tweet foi salvo com sucesso :D",Toast.LENGTH_LONG).show()
+        Toast.makeText(this,"$mensagemDoTweet",Toast.LENGTH_LONG).show()
     }
 
 }
