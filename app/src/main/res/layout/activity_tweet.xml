@@ -24,16 +24,16 @@
         tools:ignore="MissingConstraints"
         android:autofillHints="" />
 
-    <Button
-        android:id="@+id/publicar_tweet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="150dp"
-        android:text="@string/publicar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/conteudo_tweet" />
+<!--    <Button-->
+<!--        android:id="@+id/publicar_tweet"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="150dp"-->
+<!--        android:layout_marginTop="36dp"-->
+<!--        android:layout_marginEnd="150dp"-->
+<!--        android:text="@string/publicar"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/conteudo_tweet" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
