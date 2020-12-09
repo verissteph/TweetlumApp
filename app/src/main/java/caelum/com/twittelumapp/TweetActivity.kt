@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.Toast
+import caelum.com.twittelumapp.bancodedados.TwittelumDatabase
 import caelum.com.twittelumapp.modelo.Tweet
 
 class TweetActivity : AppCompatActivity() {
@@ -35,7 +36,10 @@ class TweetActivity : AppCompatActivity() {
         val campoDeMensagemDoTweet = findViewById<EditText>(R.id.conteudo_tweet)
         val mensagemDoTweet = campoDeMensagemDoTweet.text.toString()
         val tweet = Tweet(mensagemDoTweet)
-        Toast.makeText(this,"$tweet",Toast.LENGTH_LONG).show()
+        val tweetDao = TwittelumDatabase.getInstance(this).tweetDao()
+        tweetDao.salva(tweet)
+
+        Toast.makeText(this,"$tweet foi salvo com sucesso :D",Toast.LENGTH_LONG).show()
     }
 
 }
