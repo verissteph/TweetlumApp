@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import caelum.com.twittelumapp.bancodedados.TwittelumDatabase
 import caelum.com.twittelumapp.databinding.ActivityListaTweetsBinding
+import caelum.com.twittelumapp.modelo.Tweet
 import com.google.android.material.snackbar.Snackbar
 
 class ListaTweetsActivity : AppCompatActivity() {
@@ -14,15 +16,8 @@ class ListaTweetsActivity : AppCompatActivity() {
         val binding = ActivityListaTweetsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val tweets = listOf<String>(
-            "tweet 1",
-            "tweet 2",
-            "tweet 3",
-            "tweet 4",
-            "tweet 5",
-            "tweet 6",
-            "tweet 7"
-        )
+        val tweetDao = TwittelumDatabase.getInstance(this).tweetDao()
+        val tweets: List<Tweet> = tweetDao.lista()
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, tweets)
 
