@@ -6,10 +6,16 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import caelum.com.twittelumapp.bancodedados.TwittelumDatabase
 import caelum.com.twittelumapp.modelo.Tweet
+import caelum.com.twittelumapp.vm.TweetViewModel
+import caelum.com.twittelumapp.vm.ViewModelFactory
 
 class TweetActivity : AppCompatActivity() {
+    private val viewModel: TweetViewModel by lazy{
+        ViewModelProvider(this,ViewModelFactory).get(TweetViewModel::class.java)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tweet)
@@ -34,12 +40,10 @@ class TweetActivity : AppCompatActivity() {
 
     private fun publicaTweet(){
         val campoDeMensagemDoTweet = findViewById<EditText>(R.id.conteudo_tweet)
-        val mensagemDoTweet = campoDeMensagemDoTweet.text.toString()
+        val mensagemDoTweet: String = campoDeMensagemDoTweet.text.toString()
         val tweet = Tweet(mensagemDoTweet)
-        val tweetDao = TwittelumDatabase.getInstance(this).tweetDao()
-        tweetDao.salva(tweet)
-
-        Toast.makeText(this,"$mensagemDoTweet",Toast.LENGTH_LONG).show()
+        viewModel.salva(tweet)
+//        Toast.makeText(this,"$tweet foi salvot",Toast.LENGTH_LONG).show()
     }
 
 }
