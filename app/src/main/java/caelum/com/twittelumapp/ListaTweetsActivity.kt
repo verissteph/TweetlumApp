@@ -10,21 +10,27 @@ import caelum.com.twittelumapp.modelo.Tweet
 import com.google.android.material.snackbar.Snackbar
 
 class ListaTweetsActivity : AppCompatActivity() {
+    lateinit var  binding: ActivityListaTweetsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val binding = ActivityListaTweetsBinding.inflate(layoutInflater)
+        binding = ActivityListaTweetsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        binding.fabNovo.setOnClickListener{
+                val intencao = Intent(this, TweetActivity::class.java)
+                startActivity(intencao)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
         val tweetDao = TwittelumDatabase.getInstance(this).tweetDao()
         val tweets: List<Tweet> = tweetDao.lista()
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, tweets)
 
         binding.listaTweet.adapter = adapter
-        binding.fabNovo.setOnClickListener{
-                val intencao = Intent(this, TweetActivity::class.java)
-                startActivity(intencao)
-        }
     }
 }
