@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<item
+    <item
+        android:id="@+id/menu_camera"
+        android:title="Tirar foto"
+        android:icon="@drawable/ic_camera"
+        app:showAsAction="always" />
+    <item
     android:id="@+id/tweet_menu_cadastrar"
     android:title="@string/cadastrar"
     android:icon="@drawable/ic_check"
