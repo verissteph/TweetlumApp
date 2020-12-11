@@ -3,6 +3,7 @@ package caelum.com.twittelumapp
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +25,21 @@ class ListaTweetsActivity : AppCompatActivity() {
         binding = ActivityListaTweetsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.lista().observe(this,observer())
+        binding.listaTweet.setOnItemClickListener{adapter, view, position, id ->
+            val builder = AlertDialog.Builder(this)
+            builder.setIcon(R.drawable.ic_warning)
+            builder.setTitle("Deseja deletar?")
+            builder.setMessage("Tem certeza?")
+            builder.setPositiveButton("Sim"){_,_ ->
+                val tweet = adapter.getItemAtPosition(position) as Tweet
+                viewModel.deleta(tweet)
+            }
+            builder.setNegativeButton("Não"){_,_ ->}
+            builder.setNeutralButton("Não sei"){_,_ ->}
+            builder.show()
+        }
+
+       viewModel.lista().observe(this,observer())
 
         binding.fabNovo.setOnClickListener{
                 val intencao = Intent(this, TweetActivity::class.java)
