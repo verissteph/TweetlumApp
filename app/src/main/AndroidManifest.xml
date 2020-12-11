@@ -18,6 +18,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".TweetActivity" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="br.com.twittelumapp.fileprovider"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_path" />
+        </provider>
     </application>
 
 </manifest>
