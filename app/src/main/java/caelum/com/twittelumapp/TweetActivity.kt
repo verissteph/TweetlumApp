@@ -1,5 +1,6 @@
 package caelum.com.twittelumapp
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -19,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import caelum.com.twittelumapp.bancodedados.TwittelumDatabase
 import caelum.com.twittelumapp.databinding.ActivityTweetBinding
 import caelum.com.twittelumapp.modelo.Tweet
+import caelum.com.twittelumapp.util.decodificaParaBase64
 import caelum.com.twittelumapp.vm.TweetViewModel
 import caelum.com.twittelumapp.vm.ViewModelFactory
 import com.google.android.material.transition.FadeProvider
@@ -50,12 +52,6 @@ class TweetActivity : AppCompatActivity() {
 //        }
 //    }
 
-    private fun carregaFoto() {
-        val bitmap = BitmapFactory.decodeFile(localFoto)
-        val bm = Bitmap.createScaledBitmap(bitmap, 300, 300, true)
-        binding.tweetFoto.setImageBitmap(bm)
-        binding.tweetFoto.scaleType = ImageView.ScaleType.FIT_XY
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item?.itemId) {
@@ -74,30 +70,47 @@ class TweetActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == 123){
+        if (requestCode == 123 && resultCode == Activity.RESULT_OK) {
             carregaFoto()
         }
     }
 
     private fun publicaTweet() {
+        val tweet = criaTweet()
+        viewModel.salva(tweet)
+        Toast.makeText(this, "$tweet foi salvo com sucesso :D", Toast.LENGTH_LONG).show()
+        }
+    fun criaTweet(): Tweet{
         val campoDeMensagemDoTweet = findViewById<EditText>(R.id.conteudo_tweet)
         val mensagemDoTweet: String = campoDeMensagemDoTweet.text.toString()
-        val tweet = Tweet(mensagemDoTweet)
-        viewModel.salva(tweet)
-//        Toast.makeText(this,"$tweet foi salvot",Toast.LENGTH_LONG).show()
+        val foto: String? = binding.tweetFoto.tag as String?
+       return Tweet(mensagemDoTweet,foto)
+
     }
+
 
     private fun tiraFoto() {
         val abrirCamera = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val caminhoFoto = defineLocalDaFoto()
         abrirCamera.putExtra(MediaStore.EXTRA_OUTPUT, caminhoFoto)
-        startActivityForResult(abrirCamera,123)
+        startActivityForResult(abrirCamera, 123)
     }
 
     fun defineLocalDaFoto(): Uri? {
         localFoto = "${getExternalFilesDir(Environment.DIRECTORY_PICTURES)}/${
-            System.currentTimeMillis()}.jpg"
+            System.currentTimeMillis()
+        }.jpg"
         val arquivo = File(localFoto)
         return FileProvider.getUriForFile(this, "br.com.twittelumapp.fileprovider", arquivo)
+    }
+
+    private fun carregaFoto() {
+
+        val bitmap = BitmapFactory.decodeFile(localFoto)
+        val bm = Bitmap.createScaledBitmap(bitmap, 300, 300, true)
+        binding.tweetFoto.setImageBitmap(bm)
+        val fotoNaBase64 = bm.decodificaParaBase64()
+        binding.tweetFoto.tag = fotoNaBase64
+        binding.tweetFoto.scaleType = ImageView.ScaleType.FIT_XY
     }
 }
