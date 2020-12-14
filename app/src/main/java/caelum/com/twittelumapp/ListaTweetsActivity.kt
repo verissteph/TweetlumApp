@@ -48,7 +48,10 @@ class ListaTweetsActivity : AppCompatActivity() {
     }
     private  fun observer():Observer<List<Tweet>>{
         return Observer {
-            binding.listaTweet.adapter = ArrayAdapter(this,android.R.layout.simple_list_item_1,it)
+            tweets ->
+            tweets?.let{
+                binding.listaTweet.adapter = TweetAdapter(tweets)
+            }
         }
     }
 

@@ -78,7 +78,7 @@ class TweetActivity : AppCompatActivity() {
     private fun publicaTweet() {
         val tweet = criaTweet()
         viewModel.salva(tweet)
-        Toast.makeText(this, "$tweet foi salvo com sucesso :D", Toast.LENGTH_LONG).show()
+//        Toast.makeText(this, "$tweet foi salvo com sucesso :D", Toast.LENGTH_LONG).show()
         }
     fun criaTweet(): Tweet{
         val campoDeMensagemDoTweet = findViewById<EditText>(R.id.conteudo_tweet)
