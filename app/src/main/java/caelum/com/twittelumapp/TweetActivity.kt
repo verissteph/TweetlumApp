@@ -43,12 +43,12 @@ class TweetActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (localFoto != null) {
-            carregaFoto()
-        }
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        if (localFoto != null) {
+//            carregaFoto()
+//        }
+//    }
 
     private fun carregaFoto() {
         val bitmap = BitmapFactory.decodeFile(localFoto)
@@ -72,6 +72,13 @@ class TweetActivity : AppCompatActivity() {
         return false
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == 123){
+            carregaFoto()
+        }
+    }
+
     private fun publicaTweet() {
         val campoDeMensagemDoTweet = findViewById<EditText>(R.id.conteudo_tweet)
         val mensagemDoTweet: String = campoDeMensagemDoTweet.text.toString()
@@ -84,7 +91,7 @@ class TweetActivity : AppCompatActivity() {
         val abrirCamera = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val caminhoFoto = defineLocalDaFoto()
         abrirCamera.putExtra(MediaStore.EXTRA_OUTPUT, caminhoFoto)
-        startActivity(abrirCamera)
+        startActivityForResult(abrirCamera,123)
     }
 
     fun defineLocalDaFoto(): Uri? {
